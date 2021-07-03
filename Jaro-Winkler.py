@@ -41,7 +41,7 @@ def jaro(a,b):
 
         return (mChars/len(a) + mChars/len(b) + (mChars - t + 1) / mChars) / 3.0
 
-def JaroWink(a,b,preLength,scaling=0.1,override=False): #In Winkler's work 0.1 is used as the standard scaling constant, soft prefix limit = 4
+def jaroWink(a,b,preLength,scaling=0.1,override=False): #In Winkler's work 0.1 is used as the standard scaling constant, soft prefix limit = 4
     if type(scaling) != float: #Raise errors for types and hard boundaries
         raise TypeError('Non-float scaling parameter provided.')
     elif type(preLength) != int:
@@ -58,16 +58,30 @@ def JaroWink(a,b,preLength,scaling=0.1,override=False): #In Winkler's work 0.1 i
     if not(override): #Raise errors for soft boundaries
         exception = ''
         
-        if preLength > 4: exception += 'prefix length parameter greater than 4, '
-        else: pass
-        if preLength * scaling > 1.0: exception += 'prefix length * scaling multiplier greater than 1 - similarity potentially exceeds 1.0, '
-        else: pass
-        if exception == '': pass
-        else: exception += 'specify parameter override=True to bypass these limits.'
-        
-        raise ValueError(exception.capitalize())
+        if preLength > 4:
+            exception += 'prefix length parameter greater than 4, '
+        else:
+            pass
+        if preLength * scaling > 1.0:
+            exception += 'prefix length * scaling multiplier greater than 1 - similarity potentially exceeds 1.0, '
+        else:
+            pass
+
+        if exception == '':
+            pass
+        else:
+            exception += 'specify parameter override=True to bypass these limits.'
+            raise ValueError(exception.capitalize())
     else: 
         pass
 
     jaroSim = jaro(a,b)
-    return jaroSim + preLength * scaling * (1 - jaroSim)
+    multiplier = 0
+    
+    for x in range(0,preLength): #Determining identical prefix
+        if a[x] == b[x]:
+            multiplier += 1
+        else:
+            break #If a match fails, prefix no longer identical
+    
+    return jaroSim + multiplier * scaling * (1 - jaroSim)
