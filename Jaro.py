@@ -3,7 +3,7 @@
 #03/07/2021 Modlizard
 def jaro(a,b):
     if type(a) != str or type(b) != str:
-        raise Exception('Non-string arguments provided!')
+        raise TypeError('Non-string comparison parameters provided!')
     elif a == b: 
         return 1.0
     else:
