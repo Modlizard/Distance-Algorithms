@@ -16,7 +16,4 @@ def lcs(a,b):
                 else:
                     calcArr[x][y] = max(calcArr[x-1][y], calcArr[x][y-1])
         
-        print(calcArr)
         return calcArr[x][y]
-
-print(lcs('aabcdef','and abacus define'))
