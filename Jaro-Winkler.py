@@ -37,9 +37,9 @@ def jaro(a,b):
                     bPos += 1
                     t += 1
 
-        t = t//2 #All but one or all transpositions were detected twice
+        t = t/2 #All but one or all transpositions were detected twice
 
-        return (mChars/len(a) + mChars/len(b) + (mChars - t + 1) / mChars) / 3.0
+        return (mChars/len(a) + mChars/len(b) + (mChars - t) / mChars) / 3.0
 
 def jaroWink(a,b,preLength,scaling=0.1,override=False): #In Winkler's work 0.1 is used as the standard scaling constant, soft prefix limit = 4
     if type(scaling) != float: #Raise errors for types and hard boundaries
