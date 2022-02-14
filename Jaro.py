@@ -37,6 +37,6 @@ def jaro(a,b):
                     bPos += 1
                     t += 1
 
-        t = t//2 #All but one or all transpositions were detected twice
+        t = t/2 #All but one or all transpositions were detected twice
 
-        return (mChars/len(a) + mChars/len(b) + (mChars - t + 1) / mChars) / 3.0
+        return (mChars/len(a) + mChars/len(b) + (mChars - t) / mChars) / 3.0
